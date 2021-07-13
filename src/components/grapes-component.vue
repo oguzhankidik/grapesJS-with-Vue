@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <div id="gjs">
 
     </div>
@@ -7,8 +7,7 @@
   </div>
 </template>
 
-<script >
-
+<script>
 
 
 import grapesjs from 'grapesjs';
@@ -17,54 +16,46 @@ import grapesJSMJML from 'grapesjs-preset-newsletter'
 
 export default {
   name: "grapesComponent",
-  props:{
-    htmlCode:{
-
-    }
+  props: {
+    htmlCode: {}
   },
+
+
   data({htmlCode}) {
     return {
-      savedHtml:"",
-      code:htmlCode
+      savedHtml: "",
+      code: htmlCode
     };
   },
+
+
   watch: {
     code(v) {
       console.log("asdasdasd")
-      this.$emit('update:htmlCode',v);
+      this.$emit('update:htmlCode', v);
     },
   },
 
   mounted() {
-
-
-    // grapesjs equals the grapesjs from the first require line
-    const editor=grapesjs.init({
+    const editor = grapesjs.init({
       container: '#gjs',
       blocks: '#blocks',
       fromElement: false,
 
       Panels: {},
       plugins: [
-       grapesJSMJML
+        grapesJSMJML
 
       ],
       pluginsOpts: {
-        'grapesJSMJML':{
-
-        }
+        'grapesJSMJML': {}
       },
       pageManager: {
         pages: [
-          {
-            id: 'page-id',
-            component: this.htmlCode,
-          }
+          {}
         ]
       },
-      blockManager: {
-
-      },
+      blockManager: {},
       assetManager: {
         assets: [
           'http://placehold.it/350x250/78c5d6/fff/image1.jpg',
@@ -82,7 +73,8 @@ export default {
 
           },
           {
-            src:'http://placehold.it/350x250/79c267/fff/image3.jpg'
+            type: 'image',
+            src: 'https://pasteboard.co/KaWosbW.png'
           }
         ],
       },
@@ -102,45 +94,55 @@ export default {
       }
 
     })
-
-    if (editor.getHtml()===''){
+    const am = editor.AssetManager;
+    am.add('https://i.imgur.com/o1U7zaZ.png')
+    am.add('https://i.imgur.com/ZB2WTNU.png')
+    am.add('https://i.imgur.com/A4uuhsE.png')
+    am.add('https://i.imgur.com/F9dLLUH.png')
+    if (editor.getHtml() === '') {
       editor.setComponents(this.htmlCode)
     }
 
     editor.on('update', () => {
       console.log("saved")
-     // this.savedHtml=(editor.Commands.get('gjs-get-inlined-html')).run(editor);
-      //this.$emit('updateData',this.savedHtml)
+      this.savedHtml = (editor.Commands.get('gjs-get-inlined-html')).run(editor);
+      this.$emit('update:html-code', this.savedHtml)
 
-     })
-    editor.Panels.addPanel({ id: "options" }).get("buttons").add([
-      { id: "preview", command: ()=>{
+    })
+
+    editor.Panels.addPanel({id: "devices-c"}).get("buttons").add([
+      {
+        id: "preview", command: () => {
           editor.runCommand('core:preview')
         }, className: "fa fa-eye",
       }
     ]);
-    editor.Panels.addPanel({ id: "devices-c" }).get("buttons").add([
-      { id: "delete", command: ()=>{
+
+    editor.Panels.addPanel({id: "options"}).get("buttons").add([
+      {
+        id: "delete", command: () => {
           editor.runCommand('core:canvas-clear')
         }, className: "fa fa-trash",
       }
     ]);
-    editor.Panels.addPanel({ id: "options" }).get("buttons").add([
-      { id: "save-html", command: ()=>{
-        alert("saved")
-          this.code=(editor.Commands.get('gjs-get-inlined-html')).run(editor);
-          //this.$emit('update:html-code',this.savedHtml)
+
+    editor.Panels.addPanel({id: "options"}).get("buttons").add([
+      {
+        id: "save-html", command: () => {
+          alert("saved")
+          this.code = (editor.Commands.get('gjs-get-inlined-html')).run(editor);
+          this.$emit('update:html-code', this.savedHtml)
 
         }, className: "fa fa-save",
       }
     ]);
 
   },
-  };
+};
 </script>
 
 <style>
-.gjs-pn-devices-c{
+.gjs-pn-devices-c {
   right: 50%
 
 }
