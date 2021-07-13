@@ -7,12 +7,16 @@
   </div>
 </template>
 
-<script>
+<script >
 
 
 import grapesjs from 'grapesjs';
 import 'grapesjs/dist/css/grapes.min.css';
 import grapesJSMJML from 'grapesjs-preset-newsletter'
+import ckeditor from 'grapesjs-plugin-ckeditor'
+//import CKEDITOR from '@ckeditor/ckeditor5-build-classic'
+//import grapesWEB from 'grapesjs-preset-webpage'
+
 
 export default {
   name: "grapesComponent",
@@ -44,11 +48,31 @@ export default {
 
       Panels: {},
       plugins: [
-        grapesJSMJML
+        ckeditor,
+        grapesJSMJML,
+
 
       ],
+
       pluginsOpts: {
-        'grapesJSMJML': {}
+       'ckeditor': {
+          options: {
+            language: 'en',
+            startupFocus: false,
+            extraAllowedContent: '*(*);*{*}', // Allows any class and any inline style
+            allowedContent: true, // Disable auto-formatting, class removing, etc.
+           // enterMode: CKEDITOR.ENTER_BR,
+            uiColor: '#0000001a', // Inline editor color
+            extraPlugins: 'justify,colorbutton,panelbutton,font,sourcedialog,showblocks',
+            toolbar:[
+              [ "Format", "-", "Bold", "Italic", "Strike", "Underline", "Subscript", "Superscript", "RemoveFormat", "-", "NumberedList", "BulletedList", "-", "Outdent", "Indent", "-", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock", ]
+            ]
+          },
+          position: 'left',
+        },
+
+        'grapesJSMJML': {},
+
       },
       pageManager: {
         pages: [
@@ -72,10 +96,6 @@ export default {
             src: 'http://placehold.it/350x250/79c267/fff/image3.jpg',
 
           },
-          {
-            type: 'image',
-            src: 'https://pasteboard.co/KaWosbW.png'
-          }
         ],
       },
 
@@ -94,6 +114,38 @@ export default {
       }
 
     })
+
+   /* const rte = editor.RichTextEditor;
+    /*rte.add('link', {
+      icon: document.getElementById('t'),
+      attributes: {title: 'Link',},
+      // Example on it's easy to wrap a selected content
+      result: rte => rte.insertHTML(`<a href="#">${rte.selection()}</a>`)
+    });*/
+    /*rte.add('fontSize', {
+      icon: `<select class="gjs-field" style="color: white">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+      </select>`,
+      // Bind the 'result' on 'change' listener
+      event: 'change',
+      result: (rte, action) => rte.exec('fontSize', action.btn.firstChild.value),
+      // Callback on any input change (mousedown, keydown, etc..)
+      update: (rte, action) => {
+        const value = rte.doc.queryCommandValue(action.name);
+        if (value != 'false') { // value is a string
+          action.btn.firstChild.value = value;
+        }
+      }
+    })*/
+
     const am = editor.AssetManager;
     am.add('https://i.imgur.com/o1U7zaZ.png')
     am.add('https://i.imgur.com/ZB2WTNU.png')
@@ -110,7 +162,7 @@ export default {
 
     })
 
-    editor.Panels.addPanel({id: "devices-c"}).get("buttons").add([
+     editor.Panels.addPanel({id: "devices-c"}).get("buttons").add([
       {
         id: "preview", command: () => {
           editor.runCommand('core:preview')
