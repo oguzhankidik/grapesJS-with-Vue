@@ -13,7 +13,6 @@ export default {
   data() {
     return {
       grapesHTML: "",
-
       htmlCode: '<table width="100%" height="100%" bgcolor="rgb(234, 236, 237)" id="irrf" class="main-body" style="box-sizing: border-box; min-height: 150px; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 100%; height: 100%; background-color: rgb(234, 236, 237);">\n' +
           '  <tbody id="iiie" style="box-sizing: border-box;">\n' +
           '    <tr valign="top" id="ixk6" class="row" style="box-sizing: border-box; vertical-align: top;">\n' +
@@ -38,13 +37,13 @@ export default {
           '                        <table width="100%" height="0" id="i06rg" class="table100 c1357" style="box-sizing: border-box; width: 100%; min-height: 150px; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; height: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; border-collapse: collapse;">\n' +
           '                          <tbody id="i2q1x" style="box-sizing: border-box;">\n' +
           '                            <tr id="iuh7i" style="box-sizing: border-box;">\n' +
-          '                              <td valign="top" id="i7n29" class="card-content" style="box-sizing: border-box; font-size: 13px; line-height: 20px; color: rgb(111, 119, 125); padding-top: 10px; padding-right: 20px; padding-bottom: 0px; padding-left: 20px; vertical-align: top;">\n' +
-          '                                <h1 id="ii7th" class="card-title" style="text-align: center; box-sizing: border-box; font-size: 25px; font-weight: 300; color: rgb(68, 68, 68);">\n' +
-          '                                  <b id="ipjqe" style="box-sizing: border-box;">Hello [[name]]\n' +
-          '                                  </b>\n' +
-          '                                </h1>\n' +
-          '                                <p id="infus" class="card-text" style="font-size: 15px; color: #3c3d3d; box-sizing: border-box;">Thank you for visiting IPERA Solutions.Please take a quick survey to let us know how did we do today.\n' +
-          '                                </p>\n' +
+          '                              <td valign="top" id="i7n29" class="card-content" style="border: 0 solid #000000; box-sizing: border-box; font-size: 13px; line-height: 20px; color: rgb(111, 119, 125); padding-top: 10px; padding-right: 20px; padding-bottom: 0px; padding-left: 20px; vertical-align: top;">\n' +
+          '                                <div id="ilhuh" style="box-sizing: border-box; padding: 5px; min-height: 10px; color: #000000; font-size: 24px; font-weight: 700;">\n' +
+          '                                  <div id="ill9g" style="box-sizing: border-box; text-align: center;">Hello [[name]]\n' +
+          '                                  </div>\n' +
+          '                                </div>\n' +
+          '                                <div id="iwmlg" style="box-sizing: border-box; padding: 5px; min-height: 10px; color: #000000;">Thank you for visiting IPERA Solutions. Please take a quick survey to let us know how did we do today.\n' +
+          '                                </div>\n' +
           '                                <table width="100%" id="i5oag" class="c1542" style="box-sizing: border-box; margin-top: 0px; margin-right: auto; margin-bottom: 10px; margin-left: auto; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 100%;">\n' +
           '                                  <tbody id="it45l" style="box-sizing: border-box;">\n' +
           '                                    <tr id="i12s6" style="box-sizing: border-box;">\n' +
@@ -79,8 +78,9 @@ export default {
           '                    </tr>\n' +
           '                  </tbody>\n' +
           '                </table>\n' +
-          '                <div id="i6rbau" style="box-sizing: border-box; padding: 10px; text-align: center; color: #3f3d3d; font-style: normal; font-family: Verdana, Geneva, sans-serif;">\n' +
-          '                  <span id="i5qlc" style="box-sizing: border-box;">Download our app from</span>\n' +
+          '                <div id="i8skt" style="box-sizing: border-box; padding: 5px; min-height: 10px;">\n' +
+          '                  <div id="i92aa" style="box-sizing: border-box; text-align: center;">Download our app from here\n' +
+          '                  </div>\n' +
           '                </div>\n' +
           '                <table width="100%" id="i1dfl" class="list-item" style="box-sizing: border-box; height: auto; width: 100%; margin-top: 0px; margin-right: auto; margin-bottom: 10px; margin-left: auto; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;">\n' +
           '                  <tbody id="iibxk" style="box-sizing: border-box;">\n' +
@@ -169,7 +169,7 @@ export default {
           '    </tr>\n' +
           '  </tbody>\n' +
           '</table>'
-  }
+    }
   },
   components: {
     GrapesComponent
