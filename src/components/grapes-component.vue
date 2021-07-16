@@ -13,8 +13,9 @@
 import grapesjs from 'grapesjs';
 import 'grapesjs/dist/css/grapes.min.css';
 import 'grapesjs-plugin-ckeditor'
-
+import 'bootstrap/dist/css/bootstrap.css'
 import 'grapesjs-plugin-export'
+//import grapesJSMJML from 'grapesjs-preset-webpage'
 import grapesJSMJML from 'grapesjs-preset-newsletter'
 import CKEDITOR from 'ckeditor'
 
@@ -45,7 +46,12 @@ export default {
     const editor = grapesjs.init({
       container: '#gjs',
       blocks: '#blocks',
-      fromElement: false,
+      fromElement: true,
+      canvas: {
+        scripts: [
+          "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
+        ]
+      },
 
       pluginsOpts: {
         'gjs-plugin-ckeditor': {
@@ -73,6 +79,9 @@ export default {
 
         'grapesjs-plugin-export': {}
 
+      },
+      styleManager: {
+        clearProperties: true,
       },
       plugins: [
 
@@ -126,17 +135,118 @@ export default {
     })
 
     const bm = editor.BlockManager;
+    bm.get('button').set({
+      content:' <a id="i0jmq" class="button" style="box-sizing: border-box; font-size: 12px; padding: 10px 20px; background-color: #3a3939; color: rgb(255, 255, 255); text-align: center; border-radius: 3px; font-weight: 300; text-decoration: none;">Button<br id="infca" style="box-sizing: border-box;"></a>'
+
+    })
+
+    editor.DomComponents.addType('vue_example', {
+      model: {
+        init() {
+
+          if (typeof this.getAttributes()['custom_att'] === "undefined")
+            this.addAttributes({'custom_att': 'default'});
+
+          // Onload, get the latest links
+          if (this.getTrait('custom_att') === undefined)
+            this.getTrait('custom_att').set('default');
+
+          this.getTrait('custom_att').set('default');
+
+          this.listenTo(this, 'change:attributes', this.reRender);
+
+        },
+        removed() {
+
+        },
+        defaults: {
+          removable: true,
+          draggable: true,
+          droppable: true,
+          badgable: true,
+          stylable: true,
+          highlightable: true,
+          copyable: false,
+          resizable: false,
+          editable: false,
+          hoverable: true,
+          traits: [
+            {
+              type: 'text',
+              label: 'Nice',
+              name: 'custom_att'
+            }
+          ],
+          script: function(){
+            console.log("fonsafksafklas")
+            const app1El = document.createElement("div");
+            app1El.id = 'app';
+
+            const app1Script = document.createElement("script");
+            app1Script.type = "text/javascript";
+            app1Script.src = "input-component.vue";
+
+            this.appendChild(app1El);
+            this.appendChild(app1Script);
+            console.log(app1El)
+          }
+        },
+        reRender() {
+          this.view.render();
+        }
+      },
+      isComponent: function (el) {
+
+        if (el.tagName === 'vue_example'){
+
+          return {type: 'vue_example'};}
+      }
+
+    });
+
+      editor.BlockManager.add('vue_component', {
+        id: 'vue_examples',
+        label: 'Vue Test',
+        category: 'Vue',
+        content: {
+          tagName: 'vue_test',
+          type: 'vue_example',
+          editable: false
+        }
+      });
+
+
+
+
+
+
+
     bm.remove('text-sect')
     bm.get('text').set({
       content: '<div style="box-sizing: border-box;padding: 5px; min-height: 10px;">\n' +
           '  Insert your text here\n' +
           '</div>',
     });
+
+
     const am = editor.AssetManager;
-    am.add('https://i.imgur.com/o1U7zaZ.png')
-    am.add('https://i.imgur.com/ZB2WTNU.png')
-    am.add('https://i.imgur.com/A4uuhsE.png')
-    am.add('https://i.imgur.com/F9dLLUH.png')
+    am.add({
+      id:'1',
+      src:'https://i.imgur.com/o1U7zaZ.png'
+    })
+    am.add({
+      id:'2',
+      src:'https://i.imgur.com/ZB2WTNU.png'
+    })
+    am.add({
+      id:'3',
+      src:'https://i.imgur.com/A4uuhsE.png'
+    })
+    am.add({
+      id:'4',
+      src:'https://i.imgur.com/F9dLLUH.png'
+    })
+
 
     if (editor.getHtml() === '') {
       editor.setComponents(this.htmlCode)
@@ -177,7 +287,11 @@ export default {
     ]);
 
   },
-};
+
+
+
+
+}
 </script>
 
 <style>
@@ -185,6 +299,7 @@ export default {
   right: 50%
 
 }
+
 
 </style>
 
